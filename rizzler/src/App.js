@@ -1,14 +1,6 @@
 import './App.css';
-import { v4 as uuid } from 'uuid';
-import React, { useState } from 'react';
-import styles from '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import { 
-  MainContainer, 
-  ChatContainer, 
-  MessageList, 
-  Message, 
-  MessageInput, 
-  TypingIndicator } from '@chatscope/chat-ui-kit-react';
+import React from 'react';
+import MessageSection from './Components/MessageSection'
   
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -78,9 +70,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 function App() {
-  const [messageList, setMessageList] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
-  const [typing, setTyping] = useState(false)
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -90,19 +79,6 @@ function App() {
 
   const handleDrawerClose = () => {
     setOpen(false);
-  };
-
-  const onInputChange = (event) => {
-    setNewMessage(event);
-  };
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      if (newMessage.trim() !== "") {
-        const newMessageList = messageList.concat(newMessage);
-        setMessageList(newMessageList);
-      } 
-      setNewMessage('');
-    }
   };
 
   return (
@@ -174,33 +150,7 @@ function App() {
         <header className="App-header">
           <h1>This is a test lul</h1>
         </header>
-        <div style={{ position:"relative", height: "500px" }}>
-          <MainContainer>
-            <ChatContainer>   
-              <MessageList>
-                <Message model={{
-                          message: "Hello my friend",
-                          sentTime: "just now",
-                          sender: "Joe"
-                          }} />
-                {messageList.map((item) => (
-                  <Message 
-                    key={uuid()}
-                    model={{
-                    message: item,
-                    sentTime: "just now",
-                    direction: "outgoing"
-                    }}/>
-                ))}
-                {typing && <TypingIndicator />}
-              </MessageList>
-              <MessageInput placeholder={/*newMessage === '' ? */ "Type message here" /*: newMessage*/}
-                            onFocus={(e) => e.target.placeholder = ""}
-                            onChange={onInputChange}
-                            onKeyDown={handleKeyDown}/>
-            </ChatContainer>
-          </MainContainer>
-        </div>
+        <MessageSection/>
       </Main>
     </Box>
   );
