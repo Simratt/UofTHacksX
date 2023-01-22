@@ -17,9 +17,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import cherry from './cherry.svg';
 
 const drawerWidth = 240;
 
@@ -89,67 +88,67 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <img src={cherry} style={{height: "30px", marginRight: "10px"}}></img>
+            <Typography variant="h5" noWrap component="div">
+              Chatty <span style={{color: "#fc7b90"}}>Cherry</span>
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          sx={{
             width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
             <ListItem key={"Interview"} disablePadding>
               <ListItemButton onClick={() => setVariant("Interview")}>
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
                 <ListItemText primary={"Interview"} />
               </ListItemButton>
             </ListItem>
             <ListItem key={"Conversation"} disablePadding>
               <ListItemButton onClick={() => setVariant("Conversation")}>
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
                 <ListItemText primary={"Conversation"} />
               </ListItemButton>
             </ListItem>
-        </List>
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
+            <ListItem key={"Evaluation"} disablePadding>
+              <ListItemButton onClick={() => setVariant("Evaluation")}>
+                <ListItemText primary={"Evaluation"} />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Drawer>
+        <Main open={open}>
+          <DrawerHeader />
           <MessageSection version={variant}/>
-      </Main>
-    </Box>
+        </Main>
+      </Box>
     </ThemeProvider>
   );
 }
