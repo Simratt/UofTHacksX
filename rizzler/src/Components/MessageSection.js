@@ -10,7 +10,11 @@ import {
   TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
 function MessageSection(props) {
-  const [messageList, setMessageList] = useState([]);
+  const [interviewMessageList, setInterviewMessageList] = useState([{
+    content: "Hi there! Tell me a bit about yourself!",
+    direction: "incoming"
+  }]);
+  const [conversationMessageList, setConversationMessageList] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [typing, setTyping] = useState(false)
 
@@ -20,8 +24,21 @@ function MessageSection(props) {
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       if (newMessage.trim() !== "") {
-        const newMessageList = messageList.concat(newMessage);
-        setMessageList(newMessageList);
+        if (props.version === "Interview") {
+          const newMessageObj = {
+            content: newMessage,
+            direction: "outgoing"
+          }
+          const newMessageList = interviewMessageList.concat(newMessageObj);
+          setInterviewMessageList(newMessageList);
+        } else {
+          const newMessageObj = {
+            content: newMessage,
+            direction: "outgoing"
+          }
+          const newMessageList = conversationMessageList.concat(newMessageObj);
+          setConversationMessageList(newMessageList);
+        }
       } 
       setNewMessage('');
     }
@@ -35,21 +52,26 @@ function MessageSection(props) {
       <MainContainer>
         <ChatContainer>   
           <MessageList>
-            {props.version === "Interview" &&
-              <Message model={{
-                message: "Hi there! Tell me a bit about yourself!",
-                sentTime: "just now",
-                sender: "Joe"
-                }} /> }
-            {messageList.map((item) => (
-              <Message 
-              key={uuid()}
-              model={{
-              message: item,
-              sentTime: "just now",
-              direction: "outgoing"
-              }}/>
-            ))}
+            {props.version === "Interview" ?
+              interviewMessageList.map(({content, direction}) => {
+                return <Message 
+                  key={uuid()}
+                  model={{
+                    message: content,
+                    sentTime: "just now",
+                    direction: direction
+                }}/>
+              }) :
+              conversationMessageList.map(({content, direction}) => {
+                return <Message 
+                  key={uuid()}
+                  model={{
+                    message: content,
+                    sentTime: "just now",
+                    direction: direction
+                }}/>
+              })
+            }
             {typing && <TypingIndicator />}
             </MessageList>
             <MessageInput placeholder={/*newMessage === '' ? */ "Type message here" /*: newMessage*/}
