@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useState }  from 'react';
 import MessageSection from './Components/MessageSection'
-  
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -81,7 +81,14 @@ function App() {
     setOpen(false);
   };
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
+
   return (
+    <ThemeProvider theme={darkTheme}>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
@@ -143,6 +150,7 @@ function App() {
           <MessageSection version={variant}/>
       </Main>
     </Box>
+    </ThemeProvider>
   );
 }
 
