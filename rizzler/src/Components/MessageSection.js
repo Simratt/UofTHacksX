@@ -9,7 +9,7 @@ import {
   MessageInput, 
   TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
-function MessageSection() {
+function MessageSection(props) {
   const [messageList, setMessageList] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [typing, setTyping] = useState(false)
@@ -28,16 +28,19 @@ function MessageSection() {
   };
   
   return (
-
-    <div style={{ position:"relative", height: "500px" }}>
+    <div style={{ position:"relative", height: "540px" }}>
+      <header className="App-header">
+        <h2 style={{ marginTop: "0"}}>{props.version}</h2>
+      </header>
       <MainContainer>
         <ChatContainer>   
           <MessageList>
-            <Message model={{
-                    message: "Hello my friend",
-                    sentTime: "just now",
-                    sender: "Joe"
-                    }} />
+            {props.version === "Interview" &&
+              <Message model={{
+                message: "Hi there! Tell me a bit about yourself!",
+                sentTime: "just now",
+                sender: "Joe"
+                }} /> }
             {messageList.map((item) => (
               <Message 
               key={uuid()}

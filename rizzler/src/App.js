@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState }  from 'react';
 import MessageSection from './Components/MessageSection'
   
 import { styled, useTheme } from '@mui/material/styles';
@@ -20,7 +20,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
 const drawerWidth = 240;
 
@@ -72,6 +71,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function App() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [variant, setVariant] = React.useState("Interview");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -120,37 +120,27 @@ function App() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
+            <ListItem key={"Interview"} disablePadding>
+              <ListItemButton onClick={() => setVariant("Interview")}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={"Interview"} />
               </ListItemButton>
             </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
+            <ListItem key={"Conversation"} disablePadding>
+              <ListItemButton onClick={() => setVariant("Conversation")}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={"Conversation"} />
               </ListItemButton>
             </ListItem>
-          ))}
         </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <header className="App-header">
-          <h1>This is a test lul</h1>
-        </header>
-        <MessageSection/>
+          <MessageSection version={variant}/>
       </Main>
     </Box>
   );
