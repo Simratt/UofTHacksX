@@ -1,3 +1,48 @@
 .App {
   text-align: center;
 }
+
+.cs-message--incoming .cs-message__content {
+  background-color: #edc57a !important;
+}
+
+.cs-message--outgoing .cs-message__content {
+  background-color: #c7e696 !important;
+}
+
+.cs-message-input__content-editor-wrapper {
+  background-color: #c7e696 !important;
+}
+
+.cs-message-input__content-editor {
+  background-color: #c7e696 !important;
+}
+
+.cs-button--send {
+  color: #c7e696 !important;
+}
+
+.ps__thumb-y {
+  background-color: #9a7eff  !important; 
+}
+
+.evaluation {
+  height: 90% !important;
+}
+
+.cs-message-list {
+  background-color: #c4a7e0 !important; 
+}
+
+.cs-message-list .cs-typing-indicator {
+  background-color: transparent !important;
+  position: relative !important;
+}
+
+.cs-typing-indicator__dot {
+  background-color: black !important;
+}
+
+.MuiDrawer-paper {
+  color: #fc7b90 !important;
+}
